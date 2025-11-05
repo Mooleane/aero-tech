@@ -6,12 +6,10 @@ import Settings from './pages/Settings.jsx'
 
 export default function routes() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/settings" element={<Settings />} />
-			</Routes>
-		</BrowserRouter>
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/dashboard" element={<Dashboard />} />
+			<Route path="/settings" element={<Settings />} />
+		</Routes>
 	)
 }
