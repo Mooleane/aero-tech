@@ -52,11 +52,16 @@ export default function WeatherCards({ location }) {
           let condition = 'Good Conditions';
           let icon = '☀️'; // Default
 
-          // Determine card style and content based on WMO weather code
+          // Determine card style and content based on WMO weather code and temperature
           if (weatherCode >= 95) { // Thunderstorm
             cardClass = 'unsuitable';
             condition = 'Unsuitable Conditions';
             icon = '⚡';
+
+          } else if (temp > 95 || temp < 32) { // Extreme Temperature
+            cardClass = 'unsuitable';
+            condition = 'Unsuitable Conditions';
+            icon = temp > 95 ? '🔥' : '❄️';
 
           } else if (weatherCode >= 51 && weatherCode <= 67) { // Drizzle, Rain
             cardClass = 'bad';
@@ -68,16 +73,18 @@ export default function WeatherCards({ location }) {
             condition = 'Bad Conditions';
             icon = '❄️';
 
-          } else if (weatherCode === 0) { // Clear sky
-            icon = '☀️';
-
-          } else if (weatherCode >= 1 && weatherCode <= 3) { // Mainly clear, partly cloudy, and overcast
-            icon = '☁️';
-            
           } else if (weatherCode >= 80) { // Rain showers
             cardClass = 'bad';
             condition = 'Bad Conditions';
             icon = '🌧️';
+            
+          } else {
+            // Good or neutral conditions
+            if (weatherCode === 0) { // Clear sky
+              icon = '☀️';
+            } else if (weatherCode >= 1 && weatherCode <= 3) { // Mainly clear, partly cloudy, and overcast
+              icon = '☁️';
+            }
           }
 
           return {
@@ -131,6 +138,20 @@ export default function WeatherCards({ location }) {
     );
   };
 
+  // Handler for deleting a task
+  const handleDeleteTask = (id, taskIndex) => {
+    setWeatherData(currentData =>
+      currentData.map(item => {
+        if (item.id === id) {
+          // Filter out the task by its index
+          const updatedTasks = item.tasks.filter((_, index) => index !== taskIndex);
+          return { ...item, tasks: updatedTasks };
+        }
+        return item;
+      })
+    );
+  };
+
   // Apply filters to the weather data before rendering
   const filteredWeatherData = weatherData.filter((weather) => filters[weather.cardClass]);
 
@@ -142,8 +163,9 @@ export default function WeatherCards({ location }) {
   // Main component render
   return (
     <section className="weather-section" aria-labelledby="location-heading">
+      
       <div className="location-header">
-        <h2 id="location-heading">{location?.name + ' - ' + forecastDate || 'Select a location'}</h2>
+        <h2 id="location-heading">{location?.name ? `${location.name} - ${forecastDate}` : 'Select a location'}</h2>
       </div>
 
       <div className="condition-filters">
@@ -181,29 +203,41 @@ export default function WeatherCards({ location }) {
       </div>
 
       <div role="status" className="weather-cards">
+
         {loading ? (
           <div className="loading-spinner">Loading weather...</div>
+          
         ) : filteredWeatherData.length === 0 ? (
           <div className="no-results">No weather data matches the selected filters.</div>
+
         ) : (filteredWeatherData.map((weather) => (
           <article key={weather.id} className={`weather-card ${weather.cardClass}`}>
+
             <figure className="weather-icon" aria-label={weather.condition}>
               {weather.icon}
             </figure>
+            
             <p className="weather-time">{weather.time}</p>
             <p className="weather-temp">{weather.temp}</p>
+
             <section className="weather-tasks">
               <h3 className="tasks-label">Tasks ({weather.tasks.length})</h3>
               {weather.cardClass === 'unsuitable' ? (
                 <p className="tasks-content">Unavailable</p>
               ) : weather.tasks.length > 0 ? (
                 <ul className="tasks-list">
-                  {weather.tasks.map((task, index) => <li key={index}>{task}</li>)}
+                  {weather.tasks.map((task, index) => (
+                    <li key={index} className="task-item">
+                      <span>{task}</span>
+                      <button onClick={() => handleDeleteTask(weather.id, index)} className="delete-task-button" aria-label={`Delete task: ${task}`}>❌</button>
+                    </li>
+                  ))}
                 </ul>
               ) : (
                 <p className="tasks-content">No tasks yet.</p>
               )}
             </section>
+
             {weather.cardClass !== 'unsuitable' && (
               <div className="create-task-container">
                 <input
@@ -216,9 +250,12 @@ export default function WeatherCards({ location }) {
                 <button className="create-task-button" onClick={() => handleAddTask(weather.id)}>Create Task</button>
               </div>
             )}
+            
           </article>
         )))}
+        
       </div>
+
     </section>
   );
 }

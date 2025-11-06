@@ -19,9 +19,11 @@ export default function Dashboard() {
       // Using Open-Meteo's Geocoding API
       const geoApiUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(searchQuery)}&count=5&language=en&format=json`;
       const response = await fetch(geoApiUrl);
+
       if (!response.ok) {
         throw new Error(`Geocoding API error! status: ${response.status}`);
       }
+
       const data = await response.json();
       if (data.results) {
         setSearchResults(data.results);
@@ -40,6 +42,7 @@ export default function Dashboard() {
 
   return (
     <>
+
       <Navbar
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
@@ -50,6 +53,7 @@ export default function Dashboard() {
         <SearchResults results={searchResults} onSelectLocation={setLocation} />
         <WeatherCards location={location} />
       </main>
+      
     </>
   );
 }

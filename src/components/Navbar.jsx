@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Navbar({ searchQuery, onSearchQueryChange, onSearch }) {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -8,7 +10,11 @@ export default function Navbar({ searchQuery, onSearchQueryChange, onSearch }) {
   return (
     <header className="app-navbar">
       <div className="nav-left">
-        <span className="app-name">App Name</span>
+
+        <Link to="/" className="app-name">
+            WeatherWindow
+        </Link>
+        
         <section className="search-container">
           <input
             type="text"
@@ -20,10 +26,13 @@ export default function Navbar({ searchQuery, onSearchQueryChange, onSearch }) {
           />
           <button onClick={onSearch} className="search-button">🔍</button>
         </section>
+
       </div>
+
       <aside className="nav-right">
         <button className="settings-button">⚙️</button>
       </aside>
+      
     </header>
   );
 }
