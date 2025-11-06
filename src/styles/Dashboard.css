@@ -1,0 +1,120 @@
+.dashboard-container {
+  font-family: "Poppins", sans-serif;
+  background-color: #e8f4fb;
+  color: #1f3b57;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Navigation */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #cce4f7;
+  padding: 10px 20px;
+  border-bottom: 2px solid #b2d3f2;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.nav-arrow {
+  background: white;
+  border: 1px solid #b2d3f2;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #1f3b57;
+}
+
+.nav-arrow:hover {
+  background-color: #d6edff;
+}
+
+.search-bar {
+  flex: 1;
+  margin: 0 20px;
+  padding: 8px 10px;
+  border: 1px solid #b2d3f2;
+  border-radius: 8px;
+  background: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.dashboard-link {
+  font-weight: 500;
+  cursor: pointer;
+  color: #1a4868;
+}
+
+.dashboard-link:hover {
+  text-decoration: underline;
+}
+
+.settings-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #1f3b57;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 40px;
+}
+
+.logo-circle {
+  width: 500px;
+  height: 500px;
+  border: 3px solid #1f3b57;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 22px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.app-info {
+  max-width: 400px;
+  text-align: center;
+}
+
+.app-name {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.app-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.navigate-button {
+  background-color: #b6d9f5;
+  border: 2px solid #a0c8ea;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1f3b57;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navigate-button:hover {
+  background-color: #9fd0f8;
+  transform: scale(1.05);
+}
