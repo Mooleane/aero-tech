@@ -1,0 +1,249 @@
+.settings-main {
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+.settings-panel {
+  background: white;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.setting-item {
+  margin-bottom: 30px;
+}
+
+.setting-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-switch .toggle-slider {
+  background-color: #4CAF50;
+}
+
+.toggle-checkbox:checked + .toggle-switch .toggle-slider:before {
+  transform: translateX(30px);
+}
+
+.toggle-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  min-width: 30px;
+}
+
+.location-input-container {
+  position: relative;
+}
+
+.location-input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.location-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.location-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  margin-top: 2px;
+}
+
+.location-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.location-result-item:hover {
+  background-color: #f5f5f5;
+}
+
+.location-result-item:last-child {
+  border-bottom: none;
+}
+
+.location-icon {
+  font-size: 18px;
+}
+
+.location-name {
+  font-weight: 500;
+  flex: 1;
+}
+
+.location-country {
+  font-size: 12px;
+  color: #666;
+}
+
+.selected-location {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #e8f5e9;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #2e7d32;
+}
+
+.save-button {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
+
+.save-button:active {
+  transform: scale(0.98);
+}
+
+/* Dark Mode Styles */
+.dark-mode .settings-main {
+  background: #1a1a1a;
+}
+
+.dark-mode .settings-panel {
+  background: #2d2d2d;
+  border-color: #555;
+}
+
+.dark-mode .settings-title {
+  color: #fff;
+}
+
+.dark-mode .setting-label {
+  color: #fff;
+}
+
+.dark-mode .toggle-label {
+  color: #ccc;
+}
+
+.dark-mode .location-input {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .location-input:focus {
+  border-color: #4CAF50;
+}
+
+.dark-mode .location-results {
+  background: #3d3d3d;
+  border-color: #555;
+}
+
+.dark-mode .location-result-item {
+  background: #3d3d3d;
+  color: #fff;
+  border-bottom-color: #555;
+}
+
+.dark-mode .location-result-item:hover {
+  background-color: #4d4d4d;
+}
+
+.dark-mode .location-country {
+  color: #aaa;
+}
+
+.dark-mode .selected-location {
+  background-color: #2d4d2d;
+  color: #81c784;
+}
+

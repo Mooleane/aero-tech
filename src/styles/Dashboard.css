@@ -153,3 +153,37 @@
   background-color: #9fd0f8;
   transform: scale(1.05);
 }
+
+/* Dark Mode Styles */
+.dark-mode .dashboard-container {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.dark-mode .main-content {
+  background-color: #1a1a1a;
+}
+
+.dark-mode .logo-circle {
+  background-color: #2d2d2d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .app-name {
+  color: #fff;
+}
+
+.dark-mode .app-description {
+  color: #ccc;
+}
+
+.dark-mode .navigate-button {
+  background-color: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .navigate-button:hover {
+  background-color: #4d4d4d;
+}

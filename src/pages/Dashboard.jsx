@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import SearchResults from '../components/SearchResults';
 import WeatherCards from '../components/WeatherCards';
 import Navbar from '../components/Navbar';
@@ -6,11 +6,36 @@ import Navbar from '../components/Navbar';
 export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [location, setLocation] = useState({
-    name: 'Olney, Philadelphia',
-    latitude: 40.03,
-    longitude: -75.13,
+  const [location, setLocation] = useState(() => {
+    // Try to load default location from settings
+    const defaultLocationData = localStorage.getItem('defaultLocationData');
+    if (defaultLocationData) {
+      try {
+        return JSON.parse(defaultLocationData);
+      } catch (e) {
+        console.error('Failed to parse default location data:', e);
+      }
+    }
+    // Fallback to default location
+    return {
+      name: 'Olney, Philadelphia',
+      latitude: 40.03,
+      longitude: -75.13,
+    };
   });
+
+  // Load default location on mount
+  useEffect(() => {
+    const defaultLocationData = localStorage.getItem('defaultLocationData');
+    if (defaultLocationData) {
+      try {
+        const parsed = JSON.parse(defaultLocationData);
+        setLocation(parsed);
+      } catch (e) {
+        console.error('Failed to parse default location data:', e);
+      }
+    }
+  }, []);
 
   const handleSearch = useCallback(async () => {
     if (!searchQuery.trim()) return;

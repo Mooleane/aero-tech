@@ -30,7 +30,9 @@ export default function Navbar({ searchQuery, onSearchQueryChange, onSearch }) {
       </div>
 
       <aside className="nav-right">
-        <button className="settings-button">⚙️</button>
+        <Link to="/settings">
+          <button className="settings-button">⚙️</button>
+        </Link>
       </aside>
       
     </header>

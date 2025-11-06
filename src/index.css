@@ -341,7 +341,93 @@ a {
 }
 
 /* ==========================================================================
-   6. Responsive Design
+   6. Dark Mode Styles
+   ========================================================================== */
+.dark-mode {
+  background: #1a1a1a !important;
+  color: #fff;
+}
+
+.dark-mode .app-navbar {
+  background: #2d2d2d;
+  border-bottom-color: #555;
+  color: #fff;
+}
+
+.dark-mode .search-input {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .search-button {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .main-content {
+  background: #1a1a1a;
+}
+
+.dark-mode .search-results {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .result-item {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .result-item:hover {
+  background: #4d4d4d;
+}
+
+.dark-mode .weather-section {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .location-header h2 {
+  color: #fff;
+}
+
+.dark-mode .weather-card {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .task-item {
+  border-bottom-color: #555;
+}
+
+.dark-mode .create-task-button {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .create-task-button:hover {
+  background: #4d4d4d;
+}
+
+.dark-mode .task-input {
+  background: #2d2d2d;
+  border-color: #555;
+  color: #fff;
+}
+
+.dark-mode .filter-checkbox {
+  color: #fff;
+}
+
+/* ==========================================================================
+   7. Responsive Design
    ========================================================================== */
 @media (max-width: 768px) {
   .main-content {

@@ -130,9 +130,16 @@ export default function WeatherCards({ location }) {
 
   // Handler for adding a new task
   const handleAddTask = (id) => {
+    // Check if unsuitable tasks are allowed
+    const allowUnsuitableTasks = localStorage.getItem('allowUnsuitableTasks') === 'true';
+    
     setWeatherData(currentData =>
       currentData.map(item => {
         if (item.id === id && item.newTaskInput?.trim()) {
+          // Check if this is an unsuitable condition and if tasks are not allowed
+          if (item.cardClass === 'unsuitable' && !allowUnsuitableTasks) {
+            return item; // Don't allow task creation
+          }
           // Add the new task and clear the input field
           const updatedTasks = [...item.tasks, item.newTaskInput];
           localStorage.setItem(`tasks-${id}`, JSON.stringify(updatedTasks));
@@ -228,34 +235,51 @@ export default function WeatherCards({ location }) {
 
             <section className="weather-tasks">
               <h3 className="tasks-label">Tasks ({weather.tasks.length})</h3>
-              {weather.cardClass === 'unsuitable' ? (
-                <p className="tasks-content">Unavailable</p>
-              ) : weather.tasks.length > 0 ? (
-                <ul className="tasks-list">
-                  {weather.tasks.map((task, index) => (
-                    <li key={index} className="task-item">
-                      <span>{task}</span>
-                      <button onClick={() => handleDeleteTask(weather.id, index)} className="delete-task-button" aria-label={`Delete task: ${task}`}>❌</button>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="tasks-content">No tasks yet.</p>
-              )}
+              {(() => {
+                const allowUnsuitableTasks = localStorage.getItem('allowUnsuitableTasks') === 'true';
+                const isUnsuitable = weather.cardClass === 'unsuitable';
+                const showUnavailable = isUnsuitable && !allowUnsuitableTasks;
+                
+                if (showUnavailable) {
+                  return <p className="tasks-content">Unavailable</p>;
+                } else if (weather.tasks.length > 0) {
+                  return (
+                    <ul className="tasks-list">
+                      {weather.tasks.map((task, index) => (
+                        <li key={index} className="task-item">
+                          <span>{task}</span>
+                          <button onClick={() => handleDeleteTask(weather.id, index)} className="delete-task-button" aria-label={`Delete task: ${task}`}>❌</button>
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                } else {
+                  return <p className="tasks-content">No tasks yet.</p>;
+                }
+              })()}
             </section>
 
-            {weather.cardClass !== 'unsuitable' && (
-              <div className="create-task-container">
-                <input
-                  type="text"
-                  className="task-input"
-                  placeholder="Enter a new task..."
-                  value={weather.newTaskInput || ''}
-                  onChange={(e) => handleTaskInputChange(weather.id, e.target.value)}
-                />
-                <button className="create-task-button" onClick={() => handleAddTask(weather.id)}>Create Task</button>
-              </div>
-            )}
+            {(() => {
+              const allowUnsuitableTasks = localStorage.getItem('allowUnsuitableTasks') === 'true';
+              const isUnsuitable = weather.cardClass === 'unsuitable';
+              
+              // Show task input if it's not unsuitable OR if unsuitable tasks are allowed
+              if (!isUnsuitable || allowUnsuitableTasks) {
+                return (
+                  <div className="create-task-container">
+                    <input
+                      type="text"
+                      className="task-input"
+                      placeholder="Enter a new task..."
+                      value={weather.newTaskInput || ''}
+                      onChange={(e) => handleTaskInputChange(weather.id, e.target.value)}
+                    />
+                    <button className="create-task-button" onClick={() => handleAddTask(weather.id)}>Create Task</button>
+                  </div>
+                );
+              }
+              return null;
+            })()}
             
           </article>
         )))}
