@@ -4,14 +4,18 @@ import WeatherCards from '../components/WeatherCards';
 import Navbar from '../components/Navbar';
 
 export default function Dashboard() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [location, setLocation] = useState(() => {
-    // Try to load default location from settings
+  // Helper function to validate and load default location
+  const loadDefaultLocation = () => {
     const defaultLocationData = localStorage.getItem('defaultLocationData');
     if (defaultLocationData) {
       try {
-        return JSON.parse(defaultLocationData);
+        const parsed = JSON.parse(defaultLocationData);
+        // Validate that the location has all required fields
+        if (parsed && parsed.name && typeof parsed.latitude === 'number' && typeof parsed.longitude === 'number') {
+          return parsed;
+        } else {
+          console.warn('Default location data is missing required fields:', parsed);
+        }
       } catch (e) {
         console.error('Failed to parse default location data:', e);
       }
@@ -22,19 +26,39 @@ export default function Dashboard() {
       latitude: 40.03,
       longitude: -75.13,
     };
-  });
+  };
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [location, setLocation] = useState(loadDefaultLocation);
 
   // Load default location on mount
   useEffect(() => {
-    const defaultLocationData = localStorage.getItem('defaultLocationData');
-    if (defaultLocationData) {
-      try {
-        const parsed = JSON.parse(defaultLocationData);
-        setLocation(parsed);
-      } catch (e) {
-        console.error('Failed to parse default location data:', e);
+    const defaultLocation = loadDefaultLocation();
+    setLocation(defaultLocation);
+  }, []);
+
+  // Reload default location when page becomes visible (e.g., returning from settings)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        const defaultLocation = loadDefaultLocation();
+        setLocation(defaultLocation);
       }
-    }
+    };
+
+    const handleFocus = () => {
+      const defaultLocation = loadDefaultLocation();
+      setLocation(defaultLocation);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
 
   const handleSearch = useCallback(async () => {

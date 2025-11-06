@@ -57,6 +57,23 @@ export default function Settings() {
     }
   }, []);
 
+  // Initialize selectedLocationData and defaultLocation when component mounts
+  useEffect(() => {
+    const savedLocationData = localStorage.getItem('defaultLocationData');
+    if (savedLocationData) {
+      try {
+        const parsed = JSON.parse(savedLocationData);
+        if (parsed && parsed.name) {
+          setDefaultLocation(parsed.name);
+          setSearchQuery(parsed.name);
+          setSelectedLocationData(parsed);
+        }
+      } catch (e) {
+        console.error('Failed to parse saved location data:', e);
+      }
+    }
+  }, []);
+
   // Handle location search
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
