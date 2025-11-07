@@ -16,80 +16,218 @@ html {
 body {
   font-family: 'Fredoka', 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
   background: #f5f5f5;
+  color: #2c2a4a;
   transition: background 1s ease-in-out;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Weather-based backgrounds - Cartoonish Style */
-.weather-clear {
-  background: linear-gradient(180deg, #87CEEB 0%, #FFD700 30%, #FFA500 60%, #FFE4B5 100%) !important;
+body[class*="weather-"] {
+  --sky-top: #98d7ff;
+  --sky-mid: #c8eaff;
+  --sky-bottom: #fff6f1;
+  --ground: #ffeef8;
+  --hill-light: rgba(255, 210, 236, 0.72);
+  --hill-dark: rgba(200, 240, 205, 0.7);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0 3px, transparent 4px);
+  --twinkle-size: 200px 200px;
+  --twinkle-position: 0 0;
+  --floaty-layer: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.6) 35%, transparent 70%);
+  --floaty-size: 680px 280px;
+  --floaty-position: 50px 16%;
+  --accent-layer: linear-gradient(transparent, transparent);
+  --accent-size: 100% 100%;
+  --accent-position: center;
+  --sun-layer: radial-gradient(circle, rgba(255, 242, 190, 0.9) 0 35%, rgba(255, 210, 120, 0.3) 35% 65%, transparent 75%);
+  --sun-size: 260px 260px;
+  --sun-position: 15% 18%;
+  --hill-layer: repeating-linear-gradient(120deg, var(--hill-light) 0 95px, var(--hill-dark) 95px 190px);
+
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 3px, transparent 3px),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.7) 4px, transparent 4px),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 5px, transparent 5px),
-    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.6) 3px, transparent 3px);
-  background-size: 150px 150px, 120px 120px, 180px 180px, 140px 140px;
-  background-position: 0 0, 100px 50px, 200px 100px, 50px 150px;
-  animation: sunny-bounce 4s ease-in-out infinite;
+    var(--twinkle-layer),
+    var(--floaty-layer),
+    var(--accent-layer),
+    var(--sun-layer),
+    var(--hill-layer),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 42%, var(--sky-bottom) 60%, var(--ground) 60%, var(--ground) 100%);
+  background-size:
+    var(--twinkle-size),
+    var(--floaty-size),
+    var(--accent-size),
+    var(--sun-size),
+    180% 170%,
+    100% 100%;
+  background-position:
+    var(--twinkle-position),
+    var(--floaty-position),
+    var(--accent-position),
+    var(--sun-position),
+    50% 118%,
+    center;
+  background-repeat:
+    repeat,
+    repeat-x,
+    no-repeat,
+    no-repeat,
+    repeat-x,
+    no-repeat;
+  background-attachment: fixed;
+  transition: background 0.6s ease;
 }
 
-@keyframes sunny-bounce {
-  0%, 100% { background-position: 0 0, 100px 50px, 200px 100px, 50px 150px; }
-  50% { background-position: 5px 5px, 105px 55px, 205px 105px, 55px 155px; }
+/* Whimsical weather palettes */
+.weather-clear {
+  --sky-top: #7fd5ff;
+  --sky-mid: #b4f0ff;
+  --sky-bottom: #ffeccd;
+  --ground: #fff6fb;
+  --hill-light: rgba(255, 214, 235, 0.78);
+  --hill-dark: rgba(183, 239, 207, 0.78);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0 3px, transparent 4px);
+  --twinkle-size: 220px 220px;
+  --floaty-layer: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.85) 35%, transparent 65%);
+  --floaty-size: 720px 260px;
+  --floaty-position: 40px 14%;
+  --accent-layer: conic-gradient(from 180deg at 80% 28%, rgba(255, 123, 189, 0.65) 0deg 18deg, rgba(255, 210, 120, 0.6) 18deg 36deg, rgba(132, 217, 255, 0.6) 36deg 54deg, rgba(188, 255, 195, 0.6) 54deg 72deg, transparent 72deg 360deg);
+  --accent-size: 620px 320px;
+  --accent-position: 78% 24%;
+  --sun-layer: radial-gradient(circle, rgba(255, 240, 180, 0.95) 0 32%, rgba(255, 205, 120, 0.45) 32% 62%, transparent 70%);
+  --sun-size: 260px 260px;
+  --sun-position: 16% 18%;
 }
 
 .weather-cloudy {
-  background: linear-gradient(180deg, #B0C4DE 0%, #D3D3D3 40%, #E6E6FA 80%, #F0F8FF 100%) !important;
-  background-image: 
-    radial-gradient(ellipse at 25% 25%, rgba(255, 255, 255, 0.95) 18%, transparent 18%),
-    radial-gradient(ellipse at 75% 35%, rgba(255, 255, 255, 0.85) 15%, transparent 15%),
-    radial-gradient(ellipse at 50% 60%, rgba(255, 255, 255, 0.75) 12%, transparent 12%),
-    radial-gradient(ellipse at 10% 70%, rgba(255, 255, 255, 0.65) 10%, transparent 10%);
-  background-size: 250px 120px, 220px 110px, 200px 100px, 180px 90px;
-  background-position: 0 0, 120px 60px, 240px 120px, 60px 180px;
-  background-repeat: repeat-x;
-  animation: cloud-drift 8s ease-in-out infinite;
-}
-
-@keyframes cloud-drift {
-  0%, 100% { background-position: 0 0, 120px 60px, 240px 120px, 60px 180px; }
-  50% { background-position: 20px 10px, 140px 70px, 260px 130px, 80px 190px; }
+  --sky-top: #a5baff;
+  --sky-mid: #cfd8ff;
+  --sky-bottom: #eef1ff;
+  --ground: #f2efff;
+  --hill-light: rgba(210, 220, 255, 0.75);
+  --hill-dark: rgba(184, 197, 233, 0.75);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0 2.5px, transparent 3.5px);
+  --twinkle-size: 210px 210px;
+  --floaty-layer: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.9) 38%, transparent 68%);
+  --floaty-size: 760px 300px;
+  --floaty-position: 80px 18%;
+  --accent-layer: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 70%);
+  --accent-size: 100% 100%;
+  --accent-position: center;
+  --sun-layer: radial-gradient(circle, rgba(255, 255, 255, 0.75) 0 40%, transparent 70%);
+  --sun-position: 20% 18%;
 }
 
 .weather-rain {
-  background: linear-gradient(180deg, #4682B4 0%, #5F9EA0 30%, #708090 60%, #778899 100%) !important;
-  background-image: 
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 3px,
-      rgba(173, 216, 230, 0.4) 3px,
-      rgba(173, 216, 230, 0.4) 6px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 4px,
-      rgba(135, 206, 250, 0.3) 4px,
-      rgba(135, 206, 250, 0.3) 8px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 2px,
-      rgba(100, 149, 237, 0.25) 2px,
-      rgba(100, 149, 237, 0.25) 4px
-    );
-  background-size: 100% 100%, 100% 90%, 100% 70%;
-  background-position: 0 0, 0 0, 0 0;
-  animation: rain-fall 0.4s linear infinite;
+  --sky-top: #6aa9ff;
+  --sky-mid: #99c5ff;
+  --sky-bottom: #d6e7ff;
+  --ground: #e6f2ff;
+  --hill-light: rgba(160, 195, 255, 0.75);
+  --hill-dark: rgba(130, 170, 235, 0.75);
+  --twinkle-layer: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 6px);
+  --twinkle-size: 12px 18px;
+  --twinkle-position: 0 0;
+  --floaty-layer: radial-gradient(ellipse at 50% 40%, rgba(240, 250, 255, 0.55) 32%, transparent 62%);
+  --floaty-size: 720px 260px;
+  --floaty-position: 40px 14%;
+  --accent-layer: linear-gradient(180deg, rgba(120, 170, 255, 0.35) 0%, transparent 65%);
+  --accent-position: center;
+  --sun-layer: radial-gradient(circle, rgba(220, 235, 255, 0.55) 0 38%, transparent 70%);
+  --sun-position: 22% 16%;
 }
 
-@keyframes rain-fall {
-  0% { background-position: 0 0, 0 0, 0 0; }
-  100% { background-position: 0 25px, 0 20px, 0 18px; }
+.weather-snow {
+  --sky-top: #b9ddff;
+  --sky-mid: #d6ecff;
+  --sky-bottom: #f2f8ff;
+  --ground: #f7fbff;
+  --hill-light: rgba(210, 230, 255, 0.75);
+  --hill-dark: rgba(185, 210, 240, 0.75);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0 2px, transparent 3px);
+  --twinkle-size: 160px 160px;
+  --floaty-layer: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.75) 0 28%, transparent 55%);
+  --floaty-size: 320px 320px;
+  --floaty-position: 0 12%;
+  --accent-layer: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0 18%, transparent 32%);
+  --accent-size: 400px 400px;
+  --accent-position: 80% 22%;
+  --sun-layer: radial-gradient(circle, rgba(235, 245, 255, 0.8) 0 42%, transparent 70%);
+  --sun-position: 18% 20%;
+}
+
+.weather-thunderstorm {
+  --sky-top: #1a2045;
+  --sky-mid: #2c3358;
+  --sky-bottom: #374464;
+  --ground: #2b3148;
+  --hill-light: rgba(70, 80, 120, 0.8);
+  --hill-dark: rgba(40, 48, 80, 0.85);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0 2px, transparent 3px);
+  --twinkle-size: 180px 180px;
+  --floaty-layer: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.18) 38%, transparent 70%);
+  --floaty-size: 720px 260px;
+  --floaty-position: 60px 14%;
+  --accent-layer: repeating-linear-gradient(120deg, transparent 0 95px, rgba(255, 255, 255, 0.18) 95px 102px);
+  --accent-size: 240px 240px;
+  --accent-position: 70% 18%;
+  --sun-layer: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0 28%, transparent 65%);
+  --sun-position: 18% 18%;
+  color: rgba(240, 243, 255, 0.95);
+}
+
+.weather-hot {
+  --sky-top: #ff9f6d;
+  --sky-mid: #ffc08b;
+  --sky-bottom: #ffe7b5;
+  --ground: #fff1d1;
+  --hill-light: rgba(255, 196, 140, 0.72);
+  --hill-dark: rgba(255, 164, 150, 0.72);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 240, 200, 0.55) 0 3px, transparent 4px);
+  --twinkle-size: 210px 210px;
+  --floaty-layer: radial-gradient(ellipse at 50% 42%, rgba(255, 220, 170, 0.6) 32%, transparent 60%);
+  --floaty-size: 640px 240px;
+  --floaty-position: 40px 15%;
+  --accent-layer: conic-gradient(from 200deg at 20% 25%, rgba(255, 166, 92, 0.6) 0deg 35deg, rgba(255, 114, 94, 0.6) 35deg 70deg, transparent 70deg 360deg);
+  --accent-size: 520px 280px;
+  --accent-position: 22% 22%;
+  --sun-layer: radial-gradient(circle, rgba(255, 209, 106, 0.95) 0 38%, rgba(255, 125, 54, 0.45) 38% 62%, transparent 72%);
+  --sun-position: 15% 18%;
+}
+
+.weather-cold {
+  --sky-top: #83e1ff;
+  --sky-mid: #b3f0ff;
+  --sky-bottom: #e0f8ff;
+  --ground: #eafdff;
+  --hill-light: rgba(170, 230, 255, 0.75);
+  --hill-dark: rgba(140, 200, 240, 0.75);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 2.5px, transparent 3.5px);
+  --twinkle-size: 190px 190px;
+  --floaty-layer: radial-gradient(circle at 50% 50%, rgba(200, 245, 255, 0.65) 0 32%, transparent 55%);
+  --floaty-size: 360px 360px;
+  --floaty-position: 0 12%;
+  --accent-layer: radial-gradient(circle at 70% 22%, rgba(210, 240, 255, 0.55) 0 22%, transparent 36%);
+  --accent-size: 360px 360px;
+  --accent-position: 72% 22%;
+  --sun-layer: radial-gradient(circle, rgba(220, 245, 255, 0.75) 0 40%, transparent 70%);
+  --sun-position: 18% 20%;
+}
+
+.weather-default {
+  --sky-top: #bcd5ff;
+  --sky-mid: #d8e4ff;
+  --sky-bottom: #f8f3ff;
+  --ground: #f9f4ff;
+  --hill-light: rgba(220, 210, 255, 0.72);
+  --hill-dark: rgba(190, 225, 240, 0.72);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0 3px, transparent 4px);
+  --twinkle-size: 210px 210px;
+  --floaty-layer: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.7) 35%, transparent 70%);
+  --floaty-size: 700px 280px;
+  --floaty-position: 60px 16%;
+  --accent-layer: linear-gradient(180deg, rgba(220, 210, 255, 0.35) 0%, transparent 65%);
+  --accent-position: center;
+  --sun-layer: radial-gradient(circle, rgba(245, 240, 255, 0.8) 0 36%, transparent 70%);
+  --sun-position: 18% 20%;
 }
 
 /* Smooth scrolling for all scrollable containers */
@@ -118,88 +256,6 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
-.weather-snow {
-  background: linear-gradient(180deg, #E0F6FF 0%, #F0F8FF 30%, #FFFFFF 60%, #F5F5F5 100%) !important;
-  background-image: 
-    radial-gradient(circle at 10% 20%, white 2px, transparent 2px),
-    radial-gradient(circle at 30% 40%, white 2.5px, transparent 2.5px),
-    radial-gradient(circle at 50% 10%, white 2px, transparent 2px),
-    radial-gradient(circle at 70% 50%, white 2.5px, transparent 2.5px),
-    radial-gradient(circle at 90% 30%, white 2px, transparent 2px),
-    radial-gradient(circle at 20% 60%, white 1.5px, transparent 1.5px),
-    radial-gradient(circle at 80% 70%, white 2px, transparent 2px);
-  background-size: 200px 200px, 150px 150px, 180px 180px, 160px 160px, 170px 170px, 140px 140px, 190px 190px;
-  background-position: 0 0, 50px 50px, 100px 100px, 150px 150px, 200px 200px, 75px 75px, 125px 125px;
-  animation: snow-fall 2.5s linear infinite;
-}
-
-@keyframes snow-fall {
-  0% { background-position: 0 0, 50px 50px, 100px 100px, 150px 150px, 200px 200px, 75px 75px, 125px 125px; }
-  100% { background-position: 0 250px, 50px 300px, 100px 350px, 150px 400px, 200px 450px, 75px 275px, 125px 325px; }
-}
-
-.weather-thunderstorm {
-  background: linear-gradient(180deg, #191970 0%, #4B0082 30%, #2F4F4F 60%, #000033 100%) !important;
-  color: #fff;
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 12px,
-      rgba(255, 255, 255, 0.15) 12px,
-      rgba(255, 255, 255, 0.15) 24px
-    ),
-    radial-gradient(ellipse at 30% 10%, rgba(255, 255, 255, 0.4) 0%, transparent 40%),
-    radial-gradient(ellipse at 70% 5%, rgba(255, 255, 255, 0.3) 0%, transparent 35%);
-  background-size: 200% 200%, 100% 60%, 100% 50%;
-  animation: lightning 1.5s ease-in-out infinite;
-}
-
-@keyframes lightning {
-  0%, 85%, 100% { opacity: 1; }
-  90% { opacity: 0.6; }
-  92% { opacity: 1; }
-  94% { opacity: 0.7; }
-}
-
-.weather-hot {
-  background: linear-gradient(180deg, #FF4500 0%, #FF6347 25%, #FF8C00 50%, #FFD700 75%, #FFFF00 100%) !important;
-  background-image: 
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 0, 0.7) 25%, transparent 25%),
-    radial-gradient(circle at 70% 20%, rgba(255, 200, 0, 0.6) 20%, transparent 20%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 15%, transparent 15%),
-    radial-gradient(circle at 20% 60%, rgba(255, 150, 0, 0.4) 18%, transparent 18%);
-  background-size: 350px 350px, 300px 300px, 250px 250px, 280px 280px;
-  background-position: 0 0, 180px 120px, 360px 240px, 90px 180px;
-  animation: heat-wave 2.5s ease-in-out infinite;
-}
-
-@keyframes heat-wave {
-  0%, 100% { background-position: 0 0, 180px 120px, 360px 240px, 90px 180px; }
-  50% { background-position: 15px 8px, 195px 128px, 375px 248px, 105px 188px; }
-}
-
-.weather-cold {
-  background: linear-gradient(180deg, #00CED1 0%, #40E0D0 25%, #87CEEB 50%, #B0E0E6 75%, #E0F6FF 100%) !important;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.95) 4px, transparent 4px),
-    radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.9) 3px, transparent 3px),
-    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.85) 3.5px, transparent 3.5px),
-    radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.8) 3px, transparent 3px),
-    radial-gradient(circle at 10% 50%, rgba(255, 255, 255, 0.75) 2.5px, transparent 2.5px);
-  background-size: 180px 180px, 150px 150px, 160px 160px, 170px 170px, 140px 140px;
-  background-position: 0 0, 60px 60px, 120px 120px, 180px 180px, 30px 90px;
-  animation: cold-shimmer 3.5s ease-in-out infinite;
-}
-
-@keyframes cold-shimmer {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
-}
-
-.weather-default {
-  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%) !important;
-}
 
 a {
   text-decoration: none; /* Removes underlines and other text decorations */
@@ -304,20 +360,26 @@ a {
 .app-name {
   font-weight: 700;
   font-size: 24px;
-  color: #333;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #241c49;
+  letter-spacing: 0.6px;
+  text-shadow: 0 3px 10px rgba(70, 40, 130, 0.22);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
 .app-name:hover {
-  transform: scale(1.1) rotate(2deg);
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.12) rotate(1deg);
+  text-shadow: 0 6px 16px rgba(50, 30, 100, 0.25);
 }
 
 .weather-thunderstorm .app-name {
   color: #fff;
   text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.dark-mode .app-name {
+  color: #f7f4ff;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 
 .search-container {
@@ -377,6 +439,7 @@ a {
   display: flex;
   gap: 15px;
   padding: 15px;
+  padding-bottom: 110px;
   max-width: 1400px;
   margin: 0 auto;
   background: transparent;
@@ -639,7 +702,7 @@ a {
 }
 
 .weather-card:hover {
-  transform: translateY(-10px) scale(1.05) rotate(2deg);
+  transform: translateY(-8px) scale(1.04);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), inset 0 2px 8px rgba(255, 255, 255, 0.6);
   z-index: 10;
 }
@@ -879,121 +942,206 @@ a {
   50% { opacity: 0.6; }
 }
 
+.insights-marquee {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  padding: 8px 0 10px 0;
+  background: linear-gradient(90deg, rgba(255, 214, 240, 0.96) 0%, rgba(188, 224, 255, 0.94) 50%, rgba(228, 210, 255, 0.96) 100%);
+  color: #231744;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 1000;
+  box-shadow: 0 -6px 20px rgba(90, 60, 130, 0.25);
+  border-top: 2px solid rgba(70, 40, 120, 0.18);
+}
+
+.dark-mode .insights-marquee {
+  background: linear-gradient(90deg, rgba(40, 46, 88, 0.92) 0%, rgba(28, 38, 78, 0.9) 50%, rgba(52, 40, 92, 0.92) 100%);
+  color: #f3f5ff;
+  box-shadow: 0 -10px 26px rgba(5, 8, 20, 0.6);
+  border-top-color: rgba(140, 160, 255, 0.25);
+}
+
+.insights-marquee .marquee-track {
+  display: flex;
+  gap: 36px;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+  padding-left: 24px;
+}
+
+.insights-marquee .marquee-item {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.insights-marquee .marquee-item strong {
+  font-size: 0.95em;
+}
+
+.insights-marquee .marquee-anomaly {
+  color: #902c5c;
+}
+
+.insights-marquee .marquee-recommendation {
+  color: #1f4d78;
+}
+
+.dark-mode .insights-marquee .marquee-anomaly {
+  color: #ff82b6;
+}
+
+.dark-mode .insights-marquee .marquee-recommendation {
+  color: #7fd4ff;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .insights-marquee .marquee-track {
+    animation-duration: 60s;
+  }
+}
+
 /* ==========================================================================
    6. Dark Mode Styles
    ========================================================================== */
-/* Dark Mode Weather Backgrounds - Bright & Colorful Like Light Mode */
+/* Dark Mode Weather Backgrounds */
+.dark-mode {
+  color: rgba(240, 244, 255, 0.94);
+}
+
+.dark-mode[class*="weather-"] {
+  color: rgba(245, 248, 255, 0.92);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0 2px, transparent 3px);
+  --twinkle-size: 220px 220px;
+  --floaty-layer: radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.22) 35%, transparent 70%);
+  --floaty-position: 60px 20%;
+  --accent-layer: linear-gradient(transparent, transparent);
+  --sun-layer: radial-gradient(circle, rgba(255, 225, 175, 0.45) 0 32%, transparent 70%);
+  --sun-size: 220px 220px;
+  --sun-position: 18% 18%;
+  --hill-light: rgba(70, 76, 108, 0.7);
+  --hill-dark: rgba(48, 54, 84, 0.75);
+  --sky-top: #27324f;
+  --sky-mid: #354265;
+  --sky-bottom: #424f72;
+  --ground: #2d3552;
+}
+
 .dark-mode.weather-clear {
-  background: linear-gradient(180deg, #4A90E2 0%, #FFB84D 30%, #FF8C42 60%, #FFD4A3 100%) !important;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.8) 3px, transparent 3px),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.7) 4px, transparent 4px),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 5px, transparent 5px),
-    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.7) 3px, transparent 3px);
-  background-size: 150px 150px, 120px 120px, 180px 180px, 140px 140px;
-  background-position: 0 0, 100px 50px, 200px 100px, 50px 150px;
+  --sky-top: #21406c;
+  --sky-mid: #305c92;
+  --sky-bottom: #4a7aba;
+  --ground: #293d6d;
+  --hill-light: rgba(78, 113, 180, 0.72);
+  --hill-dark: rgba(53, 88, 152, 0.76);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0 2.5px, transparent 3.5px);
+  --accent-layer: conic-gradient(from 180deg at 78% 26%, rgba(255, 146, 205, 0.45) 0deg 18deg, rgba(255, 220, 125, 0.4) 18deg 36deg, rgba(120, 210, 255, 0.4) 36deg 54deg, transparent 54deg 360deg);
+  --accent-size: 540px 260px;
+  --accent-position: 76% 24%;
+  --sun-layer: radial-gradient(circle, rgba(255, 215, 150, 0.65) 0 32%, transparent 68%);
 }
 
 .dark-mode.weather-cloudy {
-  background: linear-gradient(180deg, #7A9BC8 0%, #A8B8D8 40%, #C8D0E8 80%, #E0E8F8 100%) !important;
-  background-image: 
-    radial-gradient(ellipse at 25% 25%, rgba(255, 255, 255, 0.9) 18%, transparent 18%),
-    radial-gradient(ellipse at 75% 35%, rgba(255, 255, 255, 0.85) 15%, transparent 15%),
-    radial-gradient(ellipse at 50% 60%, rgba(255, 255, 255, 0.8) 12%, transparent 12%),
-    radial-gradient(ellipse at 10% 70%, rgba(255, 255, 255, 0.75) 10%, transparent 10%);
-  background-size: 250px 120px, 220px 110px, 200px 100px, 180px 90px;
-  background-position: 0 0, 120px 60px, 240px 120px, 60px 180px;
-  background-repeat: repeat-x;
+  --sky-top: #2b3a58;
+  --sky-mid: #3d4d6e;
+  --sky-bottom: #4c5f80;
+  --ground: #2b3654;
+  --hill-light: rgba(90, 102, 140, 0.75);
+  --hill-dark: rgba(64, 76, 110, 0.78);
+  --floaty-layer: radial-gradient(ellipse at 50% 45%, rgba(235, 240, 255, 0.25) 38%, transparent 68%);
+  --accent-layer: linear-gradient(180deg, rgba(210, 220, 255, 0.25) 0%, transparent 65%);
+  --sun-layer: radial-gradient(circle, rgba(210, 220, 255, 0.45) 0 36%, transparent 68%);
 }
 
 .dark-mode.weather-rain {
-  background: linear-gradient(180deg, #5A9FD4 0%, #6BA8C8 30%, #7A9BB8 60%, #8A9CA8 100%) !important;
-  background-image: 
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 3px,
-      rgba(173, 216, 230, 0.5) 3px,
-      rgba(173, 216, 230, 0.5) 6px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 4px,
-      rgba(135, 206, 250, 0.4) 4px,
-      rgba(135, 206, 250, 0.4) 8px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 2px,
-      rgba(100, 149, 237, 0.35) 2px,
-      rgba(100, 149, 237, 0.35) 4px
-    );
-  background-size: 100% 100%, 100% 90%, 100% 70%;
-  background-position: 0 0, 0 0, 0 0;
-  animation: rain-fall 0.4s linear infinite;
+  --sky-top: #1b3355;
+  --sky-mid: #284262;
+  --sky-bottom: #36516f;
+  --ground: #23324d;
+  --hill-light: rgba(70, 96, 130, 0.75);
+  --hill-dark: rgba(48, 74, 105, 0.78);
+  --twinkle-layer: repeating-linear-gradient(135deg, rgba(200, 220, 255, 0.25) 0 2px, transparent 2px 6px);
+  --twinkle-size: 12px 18px;
+  --accent-layer: linear-gradient(180deg, rgba(90, 130, 200, 0.35) 0%, transparent 60%);
+  --sun-layer: radial-gradient(circle, rgba(200, 220, 255, 0.35) 0 32%, transparent 65%);
 }
 
 .dark-mode.weather-snow {
-  background: linear-gradient(180deg, #B0D4FF 0%, #C0E0FF 30%, #E0F0FF 60%, #F0F8FF 100%) !important;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.9) 2px, transparent 2px),
-    radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.85) 2.5px, transparent 2.5px),
-    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.9) 2px, transparent 2px),
-    radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.85) 2.5px, transparent 2.5px),
-    radial-gradient(circle at 90% 30%, rgba(255, 255, 255, 0.9) 2px, transparent 2px),
-    radial-gradient(circle at 20% 60%, rgba(255, 255, 255, 0.8) 1.5px, transparent 1.5px),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.85) 2px, transparent 2px);
-  background-size: 200px 200px, 150px 150px, 180px 180px, 160px 160px, 170px 170px, 140px 140px, 190px 190px;
-  background-position: 0 0, 50px 50px, 100px 100px, 150px 150px, 200px 200px, 75px 75px, 125px 125px;
-  animation: snow-fall 2.5s linear infinite;
+  --sky-top: #2b406a;
+  --sky-mid: #3c5483;
+  --sky-bottom: #4c6392;
+  --ground: #30446b;
+  --hill-light: rgba(100, 130, 175, 0.75);
+  --hill-dark: rgba(78, 110, 160, 0.78);
+  --twinkle-layer: radial-gradient(circle, rgba(240, 250, 255, 0.55) 0 2px, transparent 3px);
+  --floaty-layer: radial-gradient(circle at 50% 50%, rgba(240, 250, 255, 0.35) 0 26%, transparent 48%);
+  --accent-layer: radial-gradient(circle, rgba(220, 235, 255, 0.35) 0 20%, transparent 34%);
+  --sun-layer: radial-gradient(circle, rgba(220, 235, 255, 0.55) 0 36%, transparent 64%);
 }
 
 .dark-mode.weather-thunderstorm {
-  background: linear-gradient(180deg, #2A1A5A 0%, #5A2A8A 30%, #4A4A6A 60%, #1A1A3A 100%) !important;
-  color: #fff;
-  background-image: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 12px,
-      rgba(255, 255, 255, 0.2) 12px,
-      rgba(255, 255, 255, 0.2) 24px
-    ),
-    radial-gradient(ellipse at 30% 10%, rgba(255, 255, 255, 0.5) 0%, transparent 40%),
-    radial-gradient(ellipse at 70% 5%, rgba(255, 255, 255, 0.4) 0%, transparent 35%);
-  background-size: 200% 200%, 100% 60%, 100% 50%;
-  animation: lightning 1.5s ease-in-out infinite;
+  --sky-top: #0d1228;
+  --sky-mid: #161b33;
+  --sky-bottom: #1f243d;
+  --ground: #111627;
+  --hill-light: rgba(34, 38, 58, 0.85);
+  --hill-dark: rgba(18, 22, 40, 0.9);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0 2px, transparent 3px);
+  --floaty-layer: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.18) 38%, transparent 70%);
+  --accent-layer: repeating-linear-gradient(118deg, transparent 0 90px, rgba(255, 240, 180, 0.25) 90px 96px);
+  --accent-size: 220px 220px;
+  --accent-position: 70% 16%;
+  --sun-layer: radial-gradient(circle, rgba(240, 230, 255, 0.35) 0 26%, transparent 60%);
+  color: rgba(235, 238, 255, 0.92);
 }
 
 .dark-mode.weather-hot {
-  background: linear-gradient(180deg, #FF6B3D 0%, #FF7A5A 25%, #FF9A4A 50%, #FFC84D 75%, #FFE64D 100%) !important;
-  background-image: 
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 100, 0.8) 25%, transparent 25%),
-    radial-gradient(circle at 70% 20%, rgba(255, 220, 100, 0.7) 20%, transparent 20%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 200, 0.6) 15%, transparent 15%),
-    radial-gradient(circle at 20% 60%, rgba(255, 180, 100, 0.5) 18%, transparent 18%);
-  background-size: 350px 350px, 300px 300px, 250px 250px, 280px 280px;
-  background-position: 0 0, 180px 120px, 360px 240px, 90px 180px;
-  animation: heat-wave 2.5s ease-in-out infinite;
+  --sky-top: #4a1a28;
+  --sky-mid: #6a2636;
+  --sky-bottom: #8a3a42;
+  --ground: #4b2431;
+  --hill-light: rgba(153, 70, 72, 0.75);
+  --hill-dark: rgba(114, 42, 55, 0.78);
+  --twinkle-layer: radial-gradient(circle, rgba(255, 210, 160, 0.35) 0 2.5px, transparent 3.5px);
+  --accent-layer: conic-gradient(from 210deg at 22% 28%, rgba(255, 140, 90, 0.4) 0deg 45deg, transparent 45deg 360deg);
+  --accent-size: 420px 240px;
+  --accent-position: 24% 24%;
+  --sun-layer: radial-gradient(circle, rgba(255, 166, 94, 0.55) 0 34%, transparent 64%);
 }
 
 .dark-mode.weather-cold {
-  background: linear-gradient(180deg, #4AD4E1 0%, #60E8D8 25%, #87DEEB 50%, #B0E8F0 75%, #D0F0FF 100%) !important;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.95) 4px, transparent 4px),
-    radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.9) 3px, transparent 3px),
-    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.85) 3.5px, transparent 3.5px),
-    radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.9) 3px, transparent 3px),
-    radial-gradient(circle at 10% 50%, rgba(255, 255, 255, 0.85) 2.5px, transparent 2.5px);
-  background-size: 180px 180px, 150px 150px, 160px 160px, 170px 170px, 140px 140px;
-  background-position: 0 0, 60px 60px, 120px 120px, 180px 180px, 30px 90px;
-  animation: cold-shimmer 3.5s ease-in-out infinite;
+  --sky-top: #1a3e52;
+  --sky-mid: #25556d;
+  --sky-bottom: #2f6c86;
+  --ground: #1e3f56;
+  --hill-light: rgba(70, 135, 170, 0.75);
+  --hill-dark: rgba(54, 110, 150, 0.78);
+  --twinkle-layer: radial-gradient(circle, rgba(220, 245, 255, 0.45) 0 2px, transparent 3px);
+  --floaty-layer: radial-gradient(circle at 50% 50%, rgba(190, 230, 255, 0.35) 0 24%, transparent 46%);
+  --accent-layer: radial-gradient(circle at 72% 24%, rgba(170, 220, 255, 0.4) 0 20%, transparent 32%);
+  --sun-layer: radial-gradient(circle, rgba(210, 240, 255, 0.5) 0 34%, transparent 64%);
 }
 
 .dark-mode.weather-default {
-  background: linear-gradient(135deg, #4A4A5A 0%, #5A5A6A 100%) !important;
+  --sky-top: #2c3243;
+  --sky-mid: #3b4054;
+  --sky-bottom: #484a60;
+  --ground: #2a2f42;
+  --hill-light: rgba(90, 96, 124, 0.72);
+  --hill-dark: rgba(70, 78, 108, 0.78);
+  --twinkle-layer: radial-gradient(circle, rgba(235, 235, 255, 0.32) 0 2.5px, transparent 3.5px);
+  --accent-layer: linear-gradient(180deg, rgba(140, 150, 200, 0.25) 0%, transparent 60%);
+  --sun-layer: radial-gradient(circle, rgba(225, 225, 255, 0.45) 0 32%, transparent 65%);
 }
 
 .dark-mode .app-navbar {

@@ -1,6 +1,6 @@
 .dashboard-container {
   font-family: 'Fredoka', cursive, sans-serif;
-  background-color: #e8f4fb;
+  background-color: transparent;
   color: #1f3b57;
   min-height: 100vh;
   display: flex;
@@ -329,12 +329,13 @@
 
 /* Dark Mode Styles */
 .dark-mode .dashboard-container {
-  background-color: #1a1a1a;
+  background-color: transparent;
   color: #fff;
 }
 
 .dark-mode .main-content {
-  background-color: #1a1a1a;
+  background-color: transparent;
+  backdrop-filter: none;
 }
 
 .dark-mode .app-name {

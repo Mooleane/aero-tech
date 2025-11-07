@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { getWeatherType, getCurrentWeather } from '../utils/weatherUtils';
+import {
+  getWeatherType,
+  getCurrentWeather,
+  generateTaskRecommendations,
+  detectWeatherAnomalies
+} from '../utils/weatherUtils';
 
 export default function WeatherCards({ location, onWeatherChange }) {
   // Component State Management
@@ -13,6 +18,9 @@ export default function WeatherCards({ location, onWeatherChange }) {
     bad: true,
     unsuitable: false,
   });
+
+  const [taskRecommendations, setTaskRecommendations] = useState([]);
+  const [weatherAnomalies, setWeatherAnomalies] = useState([]);
 
   // Fetch and process weather data on component mount
   useEffect(() => {
@@ -141,6 +149,8 @@ export default function WeatherCards({ location, onWeatherChange }) {
         });
 
         setWeatherData(transformedData);
+        setTaskRecommendations(generateTaskRecommendations(transformedData));
+        setWeatherAnomalies(detectWeatherAnomalies(transformedData));
         
         // Notify parent component about weather change for background
         if (onWeatherChange && transformedData.length > 0) {
@@ -215,6 +225,9 @@ export default function WeatherCards({ location, onWeatherChange }) {
 
   // Apply filters to the weather data before rendering
   const filteredWeatherData = weatherData.filter((weather) => filters[weather.cardClass]);
+
+  const marqueeMessages = [...weatherAnomalies, ...taskRecommendations];
+  const marqueeLoop = marqueeMessages.length > 0 ? [...marqueeMessages, ...marqueeMessages] : [];
 
   // Render error message if data fetching fails
   if (error) {
@@ -333,6 +346,18 @@ export default function WeatherCards({ location, onWeatherChange }) {
         )))}
         
       </div>
+
+      {marqueeMessages.length > 0 && (
+        <div className="insights-marquee" role="status" aria-live="polite">
+          <div className="marquee-track">
+            {marqueeLoop.map((item, index) => (
+              <span key={`${item.message}-${index}`} className={`marquee-item marquee-${item.type}`}>
+                <strong>{item.type === 'anomaly' ? 'Heads up' : 'Pro tip'}:</strong> {item.message}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
     </section>
   );
